@@ -3,7 +3,7 @@ import threading
 
 server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 
-server.bind(('192.168.0.100' , 8000)) #localhost
+server.bind(('192.168.0.10' , 8000)) #localhost
 
 server.listen()
 print('Server listen')
