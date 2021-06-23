@@ -4,10 +4,10 @@ import threading
 server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 
 
-server.bind( (input(str('Введите свой IP адрес')) , 8000) )
+server.bind( (input(str('Введите свой IP адрес:')) , 8000) )
 
 server.listen()
-print('Server listen')
+print('Server listen...')
 
 users = []
 
@@ -29,7 +29,8 @@ def start_server():
 	while True:
 		socket_user , addres = server.accept()
 
-		socket_user.send('You are connected'.encode())
+		socket_user.send('Conect...'.encode())
+		socket_user.send('You are connected...'.encode())
 
 		print(f'User {addres[0]} connected ')
 
