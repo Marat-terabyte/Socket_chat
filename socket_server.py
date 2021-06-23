@@ -4,7 +4,7 @@ import threading
 server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 
 
-server.bind( (input(str('Введите свой IP адрес:')) , 8000) )
+server.bind( (input(str('Введите свой IP адрес')) , 8000) )
 
 server.listen()
 print('Server listen')
@@ -20,6 +20,7 @@ def send_all(data):
 def listen_user(user):
 	while True:
 		data = user.recv(2048)
+		print(f'User {data}')
 
 		send_all(data)
 
