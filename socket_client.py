@@ -1,9 +1,10 @@
 import socket
 import threading
 
+
 client = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 
-client.connect(('192.168.0.10' , 8000))
+client.connect((input(str('Введите IP адрес хоста')) , 8000))
 
 
 def listen_server():
@@ -17,7 +18,7 @@ def start_client():
 	listen_thread = threading.Thread(target = listen_server)
 	listen_thread.start()
 	while True:
-		client.send(input('...').encode())
+		client.send(input(':::').encode())
 
 
 

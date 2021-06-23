@@ -3,16 +3,19 @@ import threading
 
 server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 
-server.bind(('192.168.0.10' , 8000)) #localhost
+
+server.bind( (input(str('Введите свой IP адрес')) , 8000) )
 
 server.listen()
 print('Server listen')
 
 users = []
 
+
 def send_all(data):
 	for user in users:
 		user.send(data)
+
 
 def listen_user(user):
 	while True:
@@ -28,7 +31,7 @@ def start_server():
 
 		socket_user.send('You are connected'.encode())
 
-		print(f'User {addres[0]} connected ' )
+		print(f'User {addres[0]} connected ')
 
 		users.append(socket_user)
 
@@ -42,3 +45,5 @@ def start_server():
 
 if __name__ == '__main__':
 	start_server()
+
+#поток Main
