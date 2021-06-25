@@ -29,8 +29,8 @@ def start_server():
 	while True:
 		socket_user , addres = server.accept()
 
-		socket_user.send('Conect...'.encode())
-		socket_user.send('You are connected...'.encode())
+		socket_user.send('Conect...'.encode('utf-8'))
+		socket_user.send('You are connected...'.encode('utf-8'))
 
 		print(f'User {addres[0]} connected ')
 
