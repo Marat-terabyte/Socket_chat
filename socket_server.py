@@ -1,50 +1,47 @@
-import socket 
+import socket
 import threading
 
+
 server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
-
-
-server.bind( (input(str('Введите свой IP адрес:')) , 8000) )
-
+server.bind(('' , 7777))
 server.listen()
-print('Server listen...')
 
 users = []
 
 
-def send_all(data):
-	for user in users:
-		user.send(data)
+def user_send(data , conn):
+    for user in users:
+        user.send(data)
+
+        print(user)
+        print('\n')
+        print(users)
 
 
-def listen_user(user):
-	while True:
-		data = user.recv(2048)
-		print(f'User {data}')
+def get_data(conn):
+    while True:
+        data = conn.recv(2048)
 
-		send_all(data)
+        user_send(data , conn)
 
 
-def start_server():
-	while True:
-		socket_user , addres = server.accept()
+def socket_connect(server):
+    while True:
+        socket_user , addres = server.accept()
 
-		socket_user.send('Conect...'.encode('utf-8'))
-		socket_user.send('You are connected...'.encode('utf-8'))
+        print(f'Connected:{addres}')
 
-		print(f'User {addres[0]} connected ')
+        users.append(socket_user)
 
-		users.append(socket_user)
+        socket_user.send('Wait...'.encode())
+        socket_user.send('Connect...'.encode())
 
-		listen_accept_user = threading.Thread(
-			target = listen_user , 
-			args = (socket_user,)
-			)
+        thread_get_data = threading.Thread(
+        target = get_data ,
+        args = {socket_user,})
 
-		listen_accept_user.start()
+        thread_get_data.start()
 
 
 if __name__ == '__main__':
-	start_server()
-
-#поток Main
+    socket_connect(server)
