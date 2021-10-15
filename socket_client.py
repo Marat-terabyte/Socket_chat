@@ -1,5 +1,6 @@
+import time         #It's module for work with time
 import socket       #It's module for create a socket
-import threading    #It's module for create flow
+import threading    #It's module for create a flow
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -29,6 +30,7 @@ def main():
         if nickname == '':
             continue
         else:
+            send_data(nickname)
             break
 
     thread_data_decode_and_print = threading.Thread(target=data_decode_and_print)
@@ -40,7 +42,9 @@ def main():
         if message == '':
             continue
         else:
-            text = f'{nickname}:{message}'
+            local_time_on_client = time.localtime()
+
+            text = f'[{local_time_on_client.tm_hour}:{local_time_on_client.tm_min}:{local_time_on_client.tm_sec}] {nickname}:{message}'
             send_data(text)
 
 
