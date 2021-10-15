@@ -1,47 +1,42 @@
-import socket
-import threading
+import socket       #It's module for create a socket
+import threading    #It's module for create flow
 
 
-server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
-server.bind(('' , 7777))
-server.listen()
+SERVER = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+SERVER.bind(('', 7777))
+SERVER.listen()
 
-users = []
+USERS = []
 
 
-def user_send(data , conn):
-    for user in users:
+def user_send(data):
+    '''It's function for send data for users'''
+    for user in USERS:
         user.send(data)
-
-        print(user)
-        print('\n')
-        print(users)
 
 
 def get_data(conn):
+    '''It's function for get data'''
     while True:
         data = conn.recv(2048)
+        user_send(data)
 
-        user_send(data , conn)
 
-
-def socket_connect(server):
+def socket_connect():
+    '''It's function for connect users to a server and create for them a flow'''
     while True:
-        socket_user , addres = server.accept()
+        socket_user, addres = SERVER.accept()
 
         print(f'Connected:{addres}')
 
-        users.append(socket_user)
+        USERS.append(socket_user)
 
         socket_user.send('Wait...'.encode())
         socket_user.send('Connect...'.encode())
 
-        thread_get_data = threading.Thread(
-        target = get_data ,
-        args = {socket_user,})
-
+        thread_get_data = threading.Thread(target=get_data, args={socket_user,})
         thread_get_data.start()
 
 
 if __name__ == '__main__':
-    socket_connect(server)
+    socket_connect()
