@@ -12,7 +12,6 @@ def data_decode_and_print():
     while True:
         data = client.recv(4096)
         data = data.decode()
-
         print(data)
 
 
@@ -25,7 +24,7 @@ def send_data(message):
 def main():
     '''It's function for connect to a server'''
     while True:
-        nickname = str(input('Input nickename:'))
+        nickname = str(input('Input nickname:'))
 
         if nickname == '':
             continue

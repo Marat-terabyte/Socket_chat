@@ -9,6 +9,7 @@ SERVER.bind(('', 7777))
 SERVER.listen()
 
 USERS = []
+USERNAME = []
 
 def user_send(data):
     '''It's function for send data for users'''
@@ -27,16 +28,20 @@ def socket_connect():
     '''It's function for connect users to a server and create for them a flow'''
     while True:
         socket_user, addres = SERVER.accept()
-
-        local_time_on_server = time.localtime()
-
         print(f'Connected:{addres}')
+
         USERS.append(socket_user)
 
-        socket_user.send(f'Connect...\nTime:{time.ctime()}'.encode())
+        local_time_on_server = time.localtime()
+        socket_user.send(f'Connect...\nTime:{time.ctime()}\n'.encode())
 
         username = socket_user.recv(4096)
-        user_send(f'\n[{local_time_on_server.tm_hour}:{local_time_on_server.tm_min}:{local_time_on_server.tm_sec}] SERVER:Join {username}'.encode())
+        USERNAME.append(username)
+
+        user_send(f'\n[{local_time_on_server.tm_hour}:{local_time_on_server.tm_min}:{local_time_on_server.tm_sec}] SERVER:Join {username}\n'.encode())
+
+        for i in USERNAME:
+            socket_user.send(f'\nmember:{i}\n'.encode())
 
         thread_get_data = threading.Thread(target=get_data, args={socket_user,})
         thread_get_data.start()
