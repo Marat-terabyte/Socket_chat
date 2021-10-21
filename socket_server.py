@@ -38,10 +38,10 @@ def socket_connect():
         username = socket_user.recv(4096)
         USERNAME.append(username)
 
-        user_send(f'\n[{local_time_on_server.tm_hour}:{local_time_on_server.tm_min}:{local_time_on_server.tm_sec}] SERVER:Join {username}\n'.encode())
+        user_send(f'\n[{local_time_on_server.tm_hour}:{local_time_on_server.tm_min}:{local_time_on_server.tm_sec}] SERVER:Join {username.decode()}\n'.encode())
 
         for i in USERNAME:
-            socket_user.send(f'\nmember:{i}\n'.encode())
+            socket_user.send(f'\nmember:{i.decode()}\n'.encode())
 
         thread_get_data = threading.Thread(target=get_data, args={socket_user,})
         thread_get_data.start()
