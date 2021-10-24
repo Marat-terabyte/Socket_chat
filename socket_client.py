@@ -12,6 +12,8 @@ def data_decode_and_print():
     while True:
         data = client.recv(4096)
         data = data.decode()
+        print('\a') #Sound
+
         print(data)
 
 

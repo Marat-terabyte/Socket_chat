@@ -29,7 +29,6 @@ def socket_connect():
     while True:
         socket_user, addres = SERVER.accept()
         print(f'Connected:{addres}')
-
         USERS.append(socket_user)
 
         local_time_on_server = time.localtime()
@@ -43,7 +42,7 @@ def socket_connect():
         for i in USERNAME:
             socket_user.send(f'\nmember:{i.decode()}\n'.encode())
 
-        thread_get_data = threading.Thread(target=get_data, args={socket_user,})
+        thread_get_data = threading.Thread(target=get_data, args={socket_user})
         thread_get_data.start()
 
 
