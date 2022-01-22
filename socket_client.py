@@ -2,9 +2,10 @@ import time         #It's module for work with time
 import socket       #It's module for create a socket
 import threading    #It's module for create a flow
 
+ip_addres = socket.gethostbyname("messsage.ddns.net")
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((str(input('Input IP addres of server:')), 7777))
+client.connect((ip_addres, 1299))
 
 
 def data_decode_and_print():

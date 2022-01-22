@@ -5,7 +5,7 @@ import threading    #It's module for create flow
 SERVER = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 SERVER.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-SERVER.bind(('', 7777))
+SERVER.bind(('', 1299))
 SERVER.listen()
 
 USERS = []
